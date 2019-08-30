@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://browseCaption"
+        focusComponent="consumersTable"
+        messagesPack="com.company.testtask.web.screens.consumer">
+    <data readOnly="true">
+        <collection id="consumersDc"
+                    class="com.company.testtask.entity.Consumer"
+                    view="consumer-with-meter">
+            <loader id="consumersDl">
+                <query>
+                    <![CDATA[select e from testtask_Consumer e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="consumersTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="consumersTable"
+                dataLoader="consumersDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="consumersTable"
+                    width="100%"
+                    dataContainer="consumersDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="adress"/>
+                <column id="user"/>
+                <column id="meter"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="consumersTable.create"/>
+                <button id="editBtn" action="consumersTable.edit"/>
+                <button id="removeBtn" action="consumersTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

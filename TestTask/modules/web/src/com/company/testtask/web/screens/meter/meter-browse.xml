@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://browseCaption"
+        focusComponent="metersTable"
+        messagesPack="com.company.testtask.web.screens.meter">
+    <data readOnly="true">
+        <collection id="metersDc"
+                    class="com.company.testtask.entity.Meter"
+                    view="_local">
+            <loader id="metersDl">
+                <query>
+                    <![CDATA[select e from testtask_Meter e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="metersTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="metersTable"
+                dataLoader="metersDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="metersTable"
+                    width="100%"
+                    dataContainer="metersDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="serial"/>
+                <column id="reading"/>
+                <column id="is_used"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="metersTable.create"/>
+                <button id="editBtn" action="metersTable.edit"/>
+                <button id="removeBtn" action="metersTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<views xmlns="http://schemas.haulmont.com/cuba/view.xsd">
+
+    <view entity="testtask_Consumer" name="consumer-with-meter" extends="_local">
+        <property name="user" view="_minimal"/>
+        <property name="meter" view="_minimal">
+            <property name="reading"/>
+            <property name="is_used"/>
+        </property>
+    </view>
+</views>

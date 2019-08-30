@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://editorCaption"
+        focusComponent="form"
+        messagesPack="com.company.testtask.web.screens.consumer">
+    <data>
+        <instance id="consumerDc"
+                  class="com.company.testtask.entity.Consumer"
+                  view="consumer-with-meter">
+            <loader id="consumerDl"/>
+        </instance>
+        <collection id="usersDc" class="com.haulmont.cuba.security.entity.User" view="_minimal">
+            <loader id="usersLc">
+                <query>
+                    <![CDATA[select e from sec$User e]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="metersDc" class="com.company.testtask.entity.Meter" view="_local">
+            <loader id="metersLc">
+                <query><![CDATA[select e from testtask_Meter e
+where e.is_used = false]]></query>
+            </loader>
+        </collection>
+    </data>
+    <actions>
+        <action id="show" invoke="onShowClick"/>
+    </actions>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="consumerDc">
+            <column width="250px">
+                <textField id="adressField" property="adress"/>
+                <lookupPickerField id="userField" optionsContainer="usersDc" property="user">
+                    <actions>
+                        <action id="lookup" type="picker_lookup"/>
+                    </actions>
+                </lookupPickerField>
+                <lookupPickerField id="meterField" optionsContainer="metersDc" property="meter">
+                    <actions>
+                        <action id="lookup" type="picker_lookup"/>
+                    </actions>
+                </lookupPickerField>
+            </column>
+        </form>
+        <textArea id="area" width="624px"/>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+            <button id="showButton" caption="Show Meter" action="show"/>
+        </hbox>
+    </layout>
+</window>
